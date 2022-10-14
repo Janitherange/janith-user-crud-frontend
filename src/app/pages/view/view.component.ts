@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {CrudApiService} from "../../services/crud-api.service";
+import {UserModel} from "../../models/user.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-view',
@@ -6,26 +10,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  isList: number = 0;
-  table_interact1: boolean = false;
-  table_interact2: boolean = false;
-  table_interact3: boolean = false;
-  table_interact4: boolean = false;
-  table_interact5: boolean = false;
-  table_interact6: boolean = false;
-  table_interact7: boolean = false;
+  columnNames: string[];
+  users: UserModel[] = []
+  subscription!: Subscription;
 
-  constructor() {}
-  checkAll(value:any) {
-    this.table_interact1 = value;
-    this.table_interact2 = value;
-    this.table_interact3 = value;
-    this.table_interact4 = value;
-    this.table_interact5 = value;
-    this.table_interact6 = value;
-    this.table_interact7 = value;
+  constructor(private router: Router, private crudApiService: CrudApiService) {
+    this.columnNames = [
+      "Email",
+      "First Name",
+      "Last Name",
+      "Date of Birth",
+      "Address",
+      "Salary"
+    ]
   }
 
   ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(){
+    this.subscription = this.crudApiService.viewUsers().subscribe((users) => {
+      this.users = users;
+    })
+  }
+
+  async create() {
+    await this.router.navigateByUrl(`/create`, {replaceUrl: true})
+  }
+
+  async update(user: UserModel) {
+
+    await this.router.navigateByUrl(`/update/${user.id}`, {replaceUrl: true})
+  }
+
+  async delete(id: string){
+
+      this.crudApiService.deleteUser(id).subscribe(()=> {
+        if (this.subscription){
+          this.subscription.unsubscribe()
+        }
+        this.loadUsers();
+      });
+
+
   }
 }

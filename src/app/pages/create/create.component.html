@@ -1,1 +1,111 @@
-<p>create works!</p>
+<form (ngSubmit)="save()" class="bg-white dark:bg-gray-800 min-w-min" [formGroup]="form">
+  <div class="container mx-auto bg-white dark:bg-gray-800 mt-10 rounded px-4">
+    <div class="xl:w-full border-b border-gray-300 dark:border-gray-700 py-5">
+      <div class="flex w-11/12 mx-auto xl:w-full xl:mx-0 items-center">
+        <p class="text-lg text-gray-800 dark:text-gray-100 font-bold">Create New Record</p>
+      </div>
+    </div>
+    <div class="mx-auto pt-4">
+      <div class="container mx-auto">
+        <div class="my-6 w-11/12 mx-auto xl:w-full xl:grid xl:grid-cols-2 xl:grid-flow-row xl:mx-0" >
+          <div class="w-full lg:flex md:flex xl:pr-4">
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 lg:mr-4 md:mr-4 flex flex-col mb-6">
+              <label for="UserName" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Username</label>
+              <input (change)="usernameChange()"
+                     [ngClass]="isValidUsername ? 'dark:border-green-300' : isErrorUsername ? 'dark:border-red-300' : '' "
+                     type="text"
+                     id="UserName"
+                     name="username" formControlName="username" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidUsername" message="username"></app-success-message>
+              <app-error-message *ngIf="isErrorUsername" message="username"></app-error-message>
+            </div>
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 flex flex-col mb-6 lg:ml-4 md:ml-4">
+              <label for="Email" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Email</label>
+              <input (change)="emailChange()"
+                     [ngClass]="isValidEmail ? 'dark:border-green-300' : isErrorEmail ? 'dark:border-red-300' : '' "
+                     type="email" id="Email" name="email" formControlName="email" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidEmail" message="Email"></app-success-message>
+              <app-error-message *ngIf="isErrorEmail" message="Email"></app-error-message>
+            </div>
+          </div>
+          <div class="w-full lg:flex md:flex xl:pl-4 ">
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 lg:mr-4 md:mr-4 flex flex-col mb-6">
+              <label for="FirstName" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">First Name</label>
+              <input (change)="firstNameChange()"
+                     [ngClass]="isValidFirstName ? 'dark:border-green-300' : isErrorFirstName ? 'dark:border-red-300' : '' "
+                     type="text" id="FirstName" name="firstName" formControlName="firstName" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidFirstName" message="First name"></app-success-message>
+              <app-error-message *ngIf="isErrorFirstName" message="First name"></app-error-message>
+            </div>
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 flex flex-col mb-6 lg:ml-4 md:ml-4">
+              <label for="LastName" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Last Name</label>
+              <input (change)="lastNameChange()"
+                     [ngClass]="isValidLastName ? 'dark:border-green-300' : isErrorLastName ? 'dark:border-red-300' : '' "
+                     type="text" id="LastName" name="lastName" formControlName="lastName" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidLastName" message="Last name"></app-success-message>
+              <app-error-message *ngIf="isErrorLastName" message="Last name"></app-error-message>
+            </div>
+          </div>
+          <div class="w-full lg:flex md:flex xl:pr-4">
+            <div class="xl:w-full lg:w-full md:w-full flex flex-col mb-6">
+              <label for="Address" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Address</label>
+              <input (change)="addressChange()"
+                     [ngClass]="isValidAddress ? 'dark:border-green-300' : isErrorAddress ? 'dark:border-red-300' : '' "
+                     type="text" id="Address" name="address" formControlName="address" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded bg-transparent text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidAddress" message="Address"></app-success-message>
+              <app-error-message *ngIf="isErrorAddress" message="Address"></app-error-message>
+            </div>
+          </div>
+          <div class="w-full lg:flex md:flex xl:pl-4">
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 lg:mr-4 md:mr-4 flex flex-col mb-6">
+              <label for="DateOfBirth" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Date of
+                Birth</label>
+              <input (change)="dateOfBirthChange()"
+                     [ngClass]="isValidDateOfBirth ? 'dark:border-green-300' : isErrorDateOfBirth ? 'dark:border-red-300' : '' "
+                     type="date" id="DateOfBirth" name="dateOfBirth" formControlName="dateOfBirth" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder=""/>
+              <app-success-message *ngIf="isValidDateOfBirth" message="Date of birth"></app-success-message>
+              <app-error-message *ngIf="isErrorDateOfBirth" message="Date of birth"></app-error-message>
+            </div>
+            <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 flex flex-col mb-6 lg:ml-4 md:ml-4">
+              <label for="Salary" class="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Salary</label>
+              <input (change)="salaryChange()"
+                     [ngClass]="isValidSalary ? 'dark:border-green-300' : isErrorSalary ? 'dark:border-red-300' : '' "
+                     type="number" id="Salary" name="salary" formControlName="salary" required
+                     class="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 dark:text-gray-400"
+                     placeholder="" min="0"/>
+              <app-success-message *ngIf="isValidSalary" message="Salary"></app-success-message>
+              <app-error-message *ngIf="isErrorSalary" message="Salary"></app-error-message>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mx-auto w-11/12 xl:w-full p-4">
+    <div class="w-full py-4 sm:px-0 bg-white dark:bg-gray-800 flex justify-end">
+      <button
+        (click)="resetForm()"
+        type="button"
+        class="bg-red-200 focus:outline-none transition duration-150 ease-in-out hover:bg-red-300 dark:bg-red-700 rounded text-white dark:text-white px-6 py-2 text-xs mr-4">
+        Reset
+      </button>
+      <button
+        [disabled]="form.invalid"
+        class="bg-indigo-700 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-2 text-sm"
+        type="submit">Save
+      </button>
+    </div>
+  </div>
+</form>
